@@ -28,5 +28,3 @@ temp/
 *.pid.lock
 
 *.tsbuildinfo
-
-/src/generated/prisma
