@@ -6,6 +6,7 @@ import recommendationRoutes from "../modules/recommendations/recommendations.rou
 import telemetryRoutes from "../modules/telemetry/telemetry.routes";
 import usersRoutes from "../modules/users/users.routes";
 import vehiclesRoutes from "../modules/vehicles/vehicles.routes";
+import contactRoutes from "../modules/contact/contact.routes";
 
 const apiRouter = Router();
 
@@ -16,5 +17,6 @@ apiRouter.use("/health-predictions", healthRoutes);
 apiRouter.use("/recommendations", recommendationRoutes);
 apiRouter.use("/alerts", alertsRoutes);
 apiRouter.use("/model-metadata", modelRoutes);
+apiRouter.use("/contact", contactRoutes);
 
 export default apiRouter;

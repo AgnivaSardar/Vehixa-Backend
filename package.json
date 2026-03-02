@@ -1,7 +1,7 @@
 {
-  "name": "backend",
+  "name": "vehixa-backend",
   "version": "1.0.0",
-  "description": "Vehixa backend - Intelligent Vehicle Health & Predictive Analytics Platform",
+  "description": "Vehixa Backend - Intelligent Vehicle Health & Predictive Analytics Platform",
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
@@ -9,6 +9,7 @@
     "start": "tsx src/server.ts",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
+    "prisma:seed": "tsx prisma/seed.ts",
     "test": "echo \"No tests configured\""
   },
   "repository": {
@@ -33,16 +34,21 @@
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.1",
+    "nodemailer": "^6.9.7",
+    "pg": "^8.11.3",
     "prisma": "^7.4.2",
     "zod": "^4.1.12"
   },
   "devDependencies": {
+    "@prisma/adapter-pg": "^7.4.2",
     "@types/bcryptjs": "^2.4.6",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
+    "@types/nodemailer": "^6.4.14",
     "@types/node": "^24.7.2",
+    "@types/pg": "^8.11.4",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }

@@ -8,11 +8,12 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/User.ts'
-export type * from './models/Vehicle.ts'
-export type * from './models/Telemetry.ts'
-export type * from './models/HealthPrediction.ts'
-export type * from './models/Recommendation.ts'
-export type * from './models/Alert.ts'
-export type * from './models/ModelMetadata.ts'
-export type * from './commonInputTypes.ts'
+export type * from './models/User.js'
+export type * from './models/Vehicle.js'
+export type * from './models/Telemetry.js'
+export type * from './models/HealthPrediction.js'
+export type * from './models/Recommendation.js'
+export type * from './models/Alert.js'
+export type * from './models/ModelMetadata.js'
+export type * from './models/VehicleApiKey.js'
+export type * from './commonInputTypes.js'

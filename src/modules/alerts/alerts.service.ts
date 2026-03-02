@@ -41,4 +41,29 @@ export const alertsService = {
       data: { isResolved: true },
     });
   },
+
+  async create(data: {
+    vehicleId: string;
+    predictionId: string;
+    alertType: string;
+    severity: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+    title: string;
+    message: string;
+  }) {
+    return prisma.alert.create({
+      data: {
+        vehicleId: data.vehicleId,
+        predictionId: data.predictionId,
+        alertType: data.alertType,
+        severity: data.severity,
+        title: data.title,
+        message: data.message,
+        isResolved: false,
+      },
+      include: {
+        vehicle: true,
+        healthPrediction: true,
+      },
+    });
+  },
 };

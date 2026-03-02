@@ -17,5 +17,6 @@ export const env = {
   JWT_SECRET: process.env.JWT_SECRET as string,
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN ?? "7d",
   API_PREFIX: process.env.API_PREFIX ?? "/api/v1",
-  ML_MODEL_VERSION: process.env.ML_MODEL_VERSION ?? "vehixa-heuristic-v1",
+  ML_MODEL_URL: process.env.ML_MODEL_URL ?? "https://engine-health-model-api.onrender.com/predict",
+  ML_MODEL_VERSION: process.env.ML_MODEL_VERSION ?? "vehixa-ml-v1",
 };

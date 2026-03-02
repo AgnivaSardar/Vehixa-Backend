@@ -4,7 +4,12 @@ import { vehiclesService } from "./vehicles.service";
 export const vehiclesController = {
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const vehicle = await vehiclesService.create(req.body);
+      // Add userId from authenticated user
+      const vehicleData = {
+        ...req.body,
+        userId: req.user?.userId,
+      };
+      const vehicle = await vehiclesService.create(vehicleData);
       res.status(201).json(vehicle);
     } catch (error) {
       next(error);

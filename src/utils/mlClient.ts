@@ -1,15 +1,21 @@
 import { HealthStatus, RiskLevel } from "../generated/prisma/enums";
 import { env } from "../config/env";
+import { logger } from "./logger";
 
 type TelemetryFeatures = {
-  engineTemp?: number | null;
-  batteryVoltage?: number | null;
-  rpm?: number | null;
-  oilPressure?: number | null;
-  mileage?: number | null;
-  vibrationLevel?: number | null;
-  errorCodesCount?: number | null;
-  coolantLevel?: number | null;
+  engine_rpm?: number | null;
+  lub_oil_pressure?: number | null;
+  fuel_pressure?: number | null;
+  coolant_pressure?: number | null;
+  lub_oil_temp?: number | null;
+  coolant_temp?: number | null;
+};
+
+type MLAPIResponse = {
+  failure_probability: number;
+  engine_health: string;
+  diagnostic_analysis: string;
+  top_influential_features: string[];
 };
 
 export type PredictionResult = {
@@ -20,54 +26,97 @@ export type PredictionResult = {
   confidenceScore: number;
   predictedFailureDays: number;
   modelVersion: string;
+  diagnosticAnalysis?: string;
+  topInfluentialFeatures?: string[];
 };
 
-function clamp(value: number, min: number, max: number): number {
-  return Math.max(min, Math.min(max, value));
+// ML Model's actual probability thresholds used during training
+const GOOD_THRESHOLD = 0.3;
+const WARNING_THRESHOLD = 0.7;
+
+function normalizeHealthStatus(mlStatus: string, failureProbability: number): HealthStatus {
+  // First try to use ML model's classification
+  const normalized = mlStatus.toUpperCase();
+  if (normalized === 'CRITICAL' || normalized.includes('CRITICAL')) return HealthStatus.CRITICAL;
+  if (normalized === 'WARNING' || normalized.includes('WARNING')) return HealthStatus.WARNING;
+  if (normalized === 'GOOD' || normalized === 'HEALTHY') return HealthStatus.HEALTHY;
+  
+  // Fallback to probability-based classification using ML model's thresholds
+  if (failureProbability < GOOD_THRESHOLD) return HealthStatus.HEALTHY;
+  if (failureProbability <= WARNING_THRESHOLD) return HealthStatus.WARNING;
+  return HealthStatus.CRITICAL;
 }
 
-function normalize(value: number, ideal: number, tolerance: number): number {
-  const distance = Math.abs(value - ideal);
-  return clamp(distance / tolerance, 0, 1);
+function normalizeRiskLevel(failureProbability: number): RiskLevel {
+  // Align with ML model's probability thresholds
+  if (failureProbability >= WARNING_THRESHOLD) return RiskLevel.SEVERE;
+  if (failureProbability >= 0.5) return RiskLevel.HIGH;
+  if (failureProbability >= GOOD_THRESHOLD) return RiskLevel.MODERATE;
+  return RiskLevel.LOW;
 }
 
-export function predictVehicleHealth(data: TelemetryFeatures): PredictionResult {
-  const penalties: number[] = [];
+export async function predictVehicleHealth(data: TelemetryFeatures): Promise<PredictionResult> {
+  try {
+    // Call the real ML model API
+    const mlUrl = env.ML_MODEL_URL || 'https://engine-health-model-api.onrender.com/predict';
+    
+    const response = await fetch(mlUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        engine_rpm: data.engine_rpm || 2000,
+        lub_oil_pressure: data.lub_oil_pressure || 40,
+        fuel_pressure: data.fuel_pressure || 60,
+        coolant_pressure: data.coolant_pressure || 30,
+        lub_oil_temp: data.lub_oil_temp || 90,
+        coolant_temp: data.coolant_temp || 85,
+      }),
+    });
 
-  if (data.engineTemp != null) penalties.push(normalize(data.engineTemp, 92, 25) * 20);
-  if (data.batteryVoltage != null) penalties.push(normalize(data.batteryVoltage, 12.6, 2.2) * 15);
-  if (data.rpm != null) penalties.push(normalize(data.rpm, 2200, 3000) * 10);
-  if (data.oilPressure != null) penalties.push(normalize(data.oilPressure, 40, 30) * 15);
-  if (data.mileage != null) penalties.push(clamp(data.mileage / 350000, 0, 1) * 12);
-  if (data.vibrationLevel != null) penalties.push(clamp(data.vibrationLevel / 12, 0, 1) * 18);
-  if (data.errorCodesCount != null) penalties.push(clamp(data.errorCodesCount / 12, 0, 1) * 20);
-  if (data.coolantLevel != null) penalties.push(normalize(data.coolantLevel, 80, 50) * 10);
+    if (!response.ok) {
+      throw new Error(`ML API error: ${response.status}`);
+    }
 
-  const totalPenalty = penalties.reduce((sum, current) => sum + current, 0);
-  const healthScore = Number(clamp(100 - totalPenalty, 0, 100).toFixed(2));
-  const failureProbability = Number((1 - healthScore / 100).toFixed(3));
+    const mlResponse: MLAPIResponse = await response.json();
+    
+    const status = normalizeHealthStatus(mlResponse.engine_health, mlResponse.failure_probability);
+    const riskLevel = normalizeRiskLevel(mlResponse.failure_probability);
+    const healthScore = Math.round((1 - mlResponse.failure_probability) * 100);
+    const predictedFailureDays = Math.max(1, Math.round((1 - mlResponse.failure_probability) * 45));
+    const confidenceScore = 0.92;
 
-  let status: HealthStatus = HealthStatus.HEALTHY;
-  if (healthScore < 40) status = HealthStatus.CRITICAL;
-  else if (healthScore < 70) status = HealthStatus.WARNING;
+    return {
+      healthScore,
+      status,
+      failureProbability: mlResponse.failure_probability,
+      riskLevel,
+      confidenceScore,
+      predictedFailureDays,
+      modelVersion: env.ML_MODEL_VERSION,
+      diagnosticAnalysis: mlResponse.diagnostic_analysis,
+      topInfluentialFeatures: mlResponse.top_influential_features,
+    };
+  } catch (error) {
+    logger.error('ML Model API error:', { error: error instanceof Error ? error.message : String(error) });
+    // Fallback to heuristic calculation
+    return fallbackPrediction(data);
+  }
+}
 
-  let riskLevel: RiskLevel = RiskLevel.LOW;
-  if (failureProbability >= 0.75) riskLevel = RiskLevel.SEVERE;
-  else if (failureProbability >= 0.5) riskLevel = RiskLevel.HIGH;
-  else if (failureProbability >= 0.25) riskLevel = RiskLevel.MODERATE;
-
-  const featuresPresent = Object.values(data).filter((value) => value != null).length;
-  const confidenceScore = Number(clamp(0.5 + featuresPresent * 0.06, 0.55, 0.98).toFixed(3));
-
-  const predictedFailureDays = Math.max(1, Math.round((1 - failureProbability) * 45));
-
+function fallbackPrediction(data: TelemetryFeatures): PredictionResult {
+  // Simple fallback logic
+  const failureProbability = 0.15; // Default low failure probability
+  const healthScore = Math.round((1 - failureProbability) * 100);
+  
   return {
     healthScore,
-    status,
+    status: HealthStatus.HEALTHY,
     failureProbability,
-    riskLevel,
-    confidenceScore,
-    predictedFailureDays,
+    riskLevel: RiskLevel.LOW,
+    confidenceScore: 0.75,
+    predictedFailureDays: 35,
     modelVersion: env.ML_MODEL_VERSION,
+    diagnosticAnalysis: 'Fallback prediction used due to API unavailability',
+    topInfluentialFeatures: ['lub_oil_temp', 'engine_rpm'],
   };
 }

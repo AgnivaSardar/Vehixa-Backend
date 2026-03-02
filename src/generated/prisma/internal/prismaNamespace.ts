@@ -16,10 +16,10 @@
  */
 
 import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "../models.ts"
-import { type PrismaClient } from "./class.ts"
+import type * as Prisma from "../models.js"
+import { type PrismaClient } from "./class.js"
 
-export type * from '../models.ts'
+export type * from '../models.js'
 
 export type DMMF = typeof runtime.DMMF
 
@@ -390,7 +390,8 @@ export const ModelName = {
   HealthPrediction: 'HealthPrediction',
   Recommendation: 'Recommendation',
   Alert: 'Alert',
-  ModelMetadata: 'ModelMetadata'
+  ModelMetadata: 'ModelMetadata',
+  VehicleApiKey: 'VehicleApiKey'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -406,7 +407,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "vehicle" | "telemetry" | "healthPrediction" | "recommendation" | "alert" | "modelMetadata"
+    modelProps: "user" | "vehicle" | "telemetry" | "healthPrediction" | "recommendation" | "alert" | "modelMetadata" | "vehicleApiKey"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -928,6 +929,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    VehicleApiKey: {
+      payload: Prisma.$VehicleApiKeyPayload<ExtArgs>
+      fields: Prisma.VehicleApiKeyFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.VehicleApiKeyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleApiKeyPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.VehicleApiKeyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleApiKeyPayload>
+        }
+        findFirst: {
+          args: Prisma.VehicleApiKeyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleApiKeyPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.VehicleApiKeyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleApiKeyPayload>
+        }
+        findMany: {
+          args: Prisma.VehicleApiKeyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleApiKeyPayload>[]
+        }
+        create: {
+          args: Prisma.VehicleApiKeyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleApiKeyPayload>
+        }
+        createMany: {
+          args: Prisma.VehicleApiKeyCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.VehicleApiKeyCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleApiKeyPayload>[]
+        }
+        delete: {
+          args: Prisma.VehicleApiKeyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleApiKeyPayload>
+        }
+        update: {
+          args: Prisma.VehicleApiKeyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleApiKeyPayload>
+        }
+        deleteMany: {
+          args: Prisma.VehicleApiKeyDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.VehicleApiKeyUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.VehicleApiKeyUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleApiKeyPayload>[]
+        }
+        upsert: {
+          args: Prisma.VehicleApiKeyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VehicleApiKeyPayload>
+        }
+        aggregate: {
+          args: Prisma.VehicleApiKeyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateVehicleApiKey>
+        }
+        groupBy: {
+          args: Prisma.VehicleApiKeyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VehicleApiKeyGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.VehicleApiKeyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VehicleApiKeyCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1088,6 +1163,17 @@ export const ModelMetadataScalarFieldEnum = {
 } as const
 
 export type ModelMetadataScalarFieldEnum = (typeof ModelMetadataScalarFieldEnum)[keyof typeof ModelMetadataScalarFieldEnum]
+
+
+export const VehicleApiKeyScalarFieldEnum = {
+  id: 'id',
+  vehicleId: 'vehicleId',
+  apiKey: 'apiKey',
+  isActive: 'isActive',
+  createdAt: 'createdAt'
+} as const
+
+export type VehicleApiKeyScalarFieldEnum = (typeof VehicleApiKeyScalarFieldEnum)[keyof typeof VehicleApiKeyScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1438,6 +1524,7 @@ export type GlobalOmitConfig = {
   recommendation?: Prisma.RecommendationOmit
   alert?: Prisma.AlertOmit
   modelMetadata?: Prisma.ModelMetadataOmit
+  vehicleApiKey?: Prisma.VehicleApiKeyOmit
 }
 
 /* Types for Logging */

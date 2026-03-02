@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums.ts"
-import type * as Prisma from "../internal/prismaNamespace.ts"
+import type * as $Enums from "../enums.js"
+import type * as Prisma from "../internal/prismaNamespace.js"
 
 /**
  * Model Vehicle
@@ -292,6 +292,7 @@ export type VehicleWhereInput = {
   telemetry?: Prisma.TelemetryListRelationFilter
   healthRecords?: Prisma.HealthPredictionListRelationFilter
   alerts?: Prisma.AlertListRelationFilter
+  vehicleApiKeys?: Prisma.VehicleApiKeyListRelationFilter
 }
 
 export type VehicleOrderByWithRelationInput = {
@@ -313,6 +314,7 @@ export type VehicleOrderByWithRelationInput = {
   telemetry?: Prisma.TelemetryOrderByRelationAggregateInput
   healthRecords?: Prisma.HealthPredictionOrderByRelationAggregateInput
   alerts?: Prisma.AlertOrderByRelationAggregateInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyOrderByRelationAggregateInput
 }
 
 export type VehicleWhereUniqueInput = Prisma.AtLeast<{
@@ -337,6 +339,7 @@ export type VehicleWhereUniqueInput = Prisma.AtLeast<{
   telemetry?: Prisma.TelemetryListRelationFilter
   healthRecords?: Prisma.HealthPredictionListRelationFilter
   alerts?: Prisma.AlertListRelationFilter
+  vehicleApiKeys?: Prisma.VehicleApiKeyListRelationFilter
 }, "vehicleId" | "vehicleNumber" | "vin">
 
 export type VehicleOrderByWithAggregationInput = {
@@ -399,6 +402,7 @@ export type VehicleCreateInput = {
   telemetry?: Prisma.TelemetryCreateNestedManyWithoutVehicleInput
   healthRecords?: Prisma.HealthPredictionCreateNestedManyWithoutVehicleInput
   alerts?: Prisma.AlertCreateNestedManyWithoutVehicleInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleUncheckedCreateInput = {
@@ -419,6 +423,7 @@ export type VehicleUncheckedCreateInput = {
   telemetry?: Prisma.TelemetryUncheckedCreateNestedManyWithoutVehicleInput
   healthRecords?: Prisma.HealthPredictionUncheckedCreateNestedManyWithoutVehicleInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutVehicleInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyUncheckedCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleUpdateInput = {
@@ -439,6 +444,7 @@ export type VehicleUpdateInput = {
   telemetry?: Prisma.TelemetryUpdateManyWithoutVehicleNestedInput
   healthRecords?: Prisma.HealthPredictionUpdateManyWithoutVehicleNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutVehicleNestedInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleUncheckedUpdateInput = {
@@ -459,6 +465,7 @@ export type VehicleUncheckedUpdateInput = {
   telemetry?: Prisma.TelemetryUncheckedUpdateManyWithoutVehicleNestedInput
   healthRecords?: Prisma.HealthPredictionUncheckedUpdateManyWithoutVehicleNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutVehicleNestedInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyUncheckedUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleCreateManyInput = {
@@ -701,6 +708,20 @@ export type VehicleUpdateOneRequiredWithoutAlertsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.VehicleUpdateToOneWithWhereWithoutAlertsInput, Prisma.VehicleUpdateWithoutAlertsInput>, Prisma.VehicleUncheckedUpdateWithoutAlertsInput>
 }
 
+export type VehicleCreateNestedOneWithoutVehicleApiKeysInput = {
+  create?: Prisma.XOR<Prisma.VehicleCreateWithoutVehicleApiKeysInput, Prisma.VehicleUncheckedCreateWithoutVehicleApiKeysInput>
+  connectOrCreate?: Prisma.VehicleCreateOrConnectWithoutVehicleApiKeysInput
+  connect?: Prisma.VehicleWhereUniqueInput
+}
+
+export type VehicleUpdateOneRequiredWithoutVehicleApiKeysNestedInput = {
+  create?: Prisma.XOR<Prisma.VehicleCreateWithoutVehicleApiKeysInput, Prisma.VehicleUncheckedCreateWithoutVehicleApiKeysInput>
+  connectOrCreate?: Prisma.VehicleCreateOrConnectWithoutVehicleApiKeysInput
+  upsert?: Prisma.VehicleUpsertWithoutVehicleApiKeysInput
+  connect?: Prisma.VehicleWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.VehicleUpdateToOneWithWhereWithoutVehicleApiKeysInput, Prisma.VehicleUpdateWithoutVehicleApiKeysInput>, Prisma.VehicleUncheckedUpdateWithoutVehicleApiKeysInput>
+}
+
 export type VehicleCreateWithoutUserInput = {
   vehicleId?: string
   vehicleNumber?: string | null
@@ -718,6 +739,7 @@ export type VehicleCreateWithoutUserInput = {
   telemetry?: Prisma.TelemetryCreateNestedManyWithoutVehicleInput
   healthRecords?: Prisma.HealthPredictionCreateNestedManyWithoutVehicleInput
   alerts?: Prisma.AlertCreateNestedManyWithoutVehicleInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleUncheckedCreateWithoutUserInput = {
@@ -737,6 +759,7 @@ export type VehicleUncheckedCreateWithoutUserInput = {
   telemetry?: Prisma.TelemetryUncheckedCreateNestedManyWithoutVehicleInput
   healthRecords?: Prisma.HealthPredictionUncheckedCreateNestedManyWithoutVehicleInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutVehicleInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyUncheckedCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleCreateOrConnectWithoutUserInput = {
@@ -802,6 +825,7 @@ export type VehicleCreateWithoutTelemetryInput = {
   user: Prisma.UserCreateNestedOneWithoutVehicleInput
   healthRecords?: Prisma.HealthPredictionCreateNestedManyWithoutVehicleInput
   alerts?: Prisma.AlertCreateNestedManyWithoutVehicleInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleUncheckedCreateWithoutTelemetryInput = {
@@ -821,6 +845,7 @@ export type VehicleUncheckedCreateWithoutTelemetryInput = {
   updatedAt?: Date | string
   healthRecords?: Prisma.HealthPredictionUncheckedCreateNestedManyWithoutVehicleInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutVehicleInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyUncheckedCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleCreateOrConnectWithoutTelemetryInput = {
@@ -856,6 +881,7 @@ export type VehicleUpdateWithoutTelemetryInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutVehicleNestedInput
   healthRecords?: Prisma.HealthPredictionUpdateManyWithoutVehicleNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutVehicleNestedInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleUncheckedUpdateWithoutTelemetryInput = {
@@ -875,6 +901,7 @@ export type VehicleUncheckedUpdateWithoutTelemetryInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   healthRecords?: Prisma.HealthPredictionUncheckedUpdateManyWithoutVehicleNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutVehicleNestedInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyUncheckedUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleCreateWithoutHealthRecordsInput = {
@@ -894,6 +921,7 @@ export type VehicleCreateWithoutHealthRecordsInput = {
   user: Prisma.UserCreateNestedOneWithoutVehicleInput
   telemetry?: Prisma.TelemetryCreateNestedManyWithoutVehicleInput
   alerts?: Prisma.AlertCreateNestedManyWithoutVehicleInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleUncheckedCreateWithoutHealthRecordsInput = {
@@ -913,6 +941,7 @@ export type VehicleUncheckedCreateWithoutHealthRecordsInput = {
   updatedAt?: Date | string
   telemetry?: Prisma.TelemetryUncheckedCreateNestedManyWithoutVehicleInput
   alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutVehicleInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyUncheckedCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleCreateOrConnectWithoutHealthRecordsInput = {
@@ -948,6 +977,7 @@ export type VehicleUpdateWithoutHealthRecordsInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutVehicleNestedInput
   telemetry?: Prisma.TelemetryUpdateManyWithoutVehicleNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutVehicleNestedInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleUncheckedUpdateWithoutHealthRecordsInput = {
@@ -967,6 +997,7 @@ export type VehicleUncheckedUpdateWithoutHealthRecordsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   telemetry?: Prisma.TelemetryUncheckedUpdateManyWithoutVehicleNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutVehicleNestedInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyUncheckedUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleCreateWithoutAlertsInput = {
@@ -986,6 +1017,7 @@ export type VehicleCreateWithoutAlertsInput = {
   user: Prisma.UserCreateNestedOneWithoutVehicleInput
   telemetry?: Prisma.TelemetryCreateNestedManyWithoutVehicleInput
   healthRecords?: Prisma.HealthPredictionCreateNestedManyWithoutVehicleInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleUncheckedCreateWithoutAlertsInput = {
@@ -1005,6 +1037,7 @@ export type VehicleUncheckedCreateWithoutAlertsInput = {
   updatedAt?: Date | string
   telemetry?: Prisma.TelemetryUncheckedCreateNestedManyWithoutVehicleInput
   healthRecords?: Prisma.HealthPredictionUncheckedCreateNestedManyWithoutVehicleInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyUncheckedCreateNestedManyWithoutVehicleInput
 }
 
 export type VehicleCreateOrConnectWithoutAlertsInput = {
@@ -1040,6 +1073,7 @@ export type VehicleUpdateWithoutAlertsInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutVehicleNestedInput
   telemetry?: Prisma.TelemetryUpdateManyWithoutVehicleNestedInput
   healthRecords?: Prisma.HealthPredictionUpdateManyWithoutVehicleNestedInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleUncheckedUpdateWithoutAlertsInput = {
@@ -1059,6 +1093,103 @@ export type VehicleUncheckedUpdateWithoutAlertsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   telemetry?: Prisma.TelemetryUncheckedUpdateManyWithoutVehicleNestedInput
   healthRecords?: Prisma.HealthPredictionUncheckedUpdateManyWithoutVehicleNestedInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyUncheckedUpdateManyWithoutVehicleNestedInput
+}
+
+export type VehicleCreateWithoutVehicleApiKeysInput = {
+  vehicleId?: string
+  vehicleNumber?: string | null
+  model?: string | null
+  manufacturer?: string | null
+  year?: number | null
+  vehicleType?: $Enums.VehicleType | null
+  vin?: string | null
+  engineType?: $Enums.EngineType | null
+  fuelType: $Enums.FuelType
+  registrationDate?: Date | string | null
+  status?: $Enums.VehicleOperationalStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutVehicleInput
+  telemetry?: Prisma.TelemetryCreateNestedManyWithoutVehicleInput
+  healthRecords?: Prisma.HealthPredictionCreateNestedManyWithoutVehicleInput
+  alerts?: Prisma.AlertCreateNestedManyWithoutVehicleInput
+}
+
+export type VehicleUncheckedCreateWithoutVehicleApiKeysInput = {
+  vehicleId?: string
+  userId: string
+  vehicleNumber?: string | null
+  model?: string | null
+  manufacturer?: string | null
+  year?: number | null
+  vehicleType?: $Enums.VehicleType | null
+  vin?: string | null
+  engineType?: $Enums.EngineType | null
+  fuelType: $Enums.FuelType
+  registrationDate?: Date | string | null
+  status?: $Enums.VehicleOperationalStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  telemetry?: Prisma.TelemetryUncheckedCreateNestedManyWithoutVehicleInput
+  healthRecords?: Prisma.HealthPredictionUncheckedCreateNestedManyWithoutVehicleInput
+  alerts?: Prisma.AlertUncheckedCreateNestedManyWithoutVehicleInput
+}
+
+export type VehicleCreateOrConnectWithoutVehicleApiKeysInput = {
+  where: Prisma.VehicleWhereUniqueInput
+  create: Prisma.XOR<Prisma.VehicleCreateWithoutVehicleApiKeysInput, Prisma.VehicleUncheckedCreateWithoutVehicleApiKeysInput>
+}
+
+export type VehicleUpsertWithoutVehicleApiKeysInput = {
+  update: Prisma.XOR<Prisma.VehicleUpdateWithoutVehicleApiKeysInput, Prisma.VehicleUncheckedUpdateWithoutVehicleApiKeysInput>
+  create: Prisma.XOR<Prisma.VehicleCreateWithoutVehicleApiKeysInput, Prisma.VehicleUncheckedCreateWithoutVehicleApiKeysInput>
+  where?: Prisma.VehicleWhereInput
+}
+
+export type VehicleUpdateToOneWithWhereWithoutVehicleApiKeysInput = {
+  where?: Prisma.VehicleWhereInput
+  data: Prisma.XOR<Prisma.VehicleUpdateWithoutVehicleApiKeysInput, Prisma.VehicleUncheckedUpdateWithoutVehicleApiKeysInput>
+}
+
+export type VehicleUpdateWithoutVehicleApiKeysInput = {
+  vehicleId?: Prisma.StringFieldUpdateOperationsInput | string
+  vehicleNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  manufacturer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  vehicleType?: Prisma.NullableEnumVehicleTypeFieldUpdateOperationsInput | $Enums.VehicleType | null
+  vin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  engineType?: Prisma.NullableEnumEngineTypeFieldUpdateOperationsInput | $Enums.EngineType | null
+  fuelType?: Prisma.EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+  registrationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumVehicleOperationalStatusFieldUpdateOperationsInput | $Enums.VehicleOperationalStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutVehicleNestedInput
+  telemetry?: Prisma.TelemetryUpdateManyWithoutVehicleNestedInput
+  healthRecords?: Prisma.HealthPredictionUpdateManyWithoutVehicleNestedInput
+  alerts?: Prisma.AlertUpdateManyWithoutVehicleNestedInput
+}
+
+export type VehicleUncheckedUpdateWithoutVehicleApiKeysInput = {
+  vehicleId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  vehicleNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  model?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  manufacturer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  year?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  vehicleType?: Prisma.NullableEnumVehicleTypeFieldUpdateOperationsInput | $Enums.VehicleType | null
+  vin?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  engineType?: Prisma.NullableEnumEngineTypeFieldUpdateOperationsInput | $Enums.EngineType | null
+  fuelType?: Prisma.EnumFuelTypeFieldUpdateOperationsInput | $Enums.FuelType
+  registrationDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumVehicleOperationalStatusFieldUpdateOperationsInput | $Enums.VehicleOperationalStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  telemetry?: Prisma.TelemetryUncheckedUpdateManyWithoutVehicleNestedInput
+  healthRecords?: Prisma.HealthPredictionUncheckedUpdateManyWithoutVehicleNestedInput
+  alerts?: Prisma.AlertUncheckedUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleCreateManyUserInput = {
@@ -1094,6 +1225,7 @@ export type VehicleUpdateWithoutUserInput = {
   telemetry?: Prisma.TelemetryUpdateManyWithoutVehicleNestedInput
   healthRecords?: Prisma.HealthPredictionUpdateManyWithoutVehicleNestedInput
   alerts?: Prisma.AlertUpdateManyWithoutVehicleNestedInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleUncheckedUpdateWithoutUserInput = {
@@ -1113,6 +1245,7 @@ export type VehicleUncheckedUpdateWithoutUserInput = {
   telemetry?: Prisma.TelemetryUncheckedUpdateManyWithoutVehicleNestedInput
   healthRecords?: Prisma.HealthPredictionUncheckedUpdateManyWithoutVehicleNestedInput
   alerts?: Prisma.AlertUncheckedUpdateManyWithoutVehicleNestedInput
+  vehicleApiKeys?: Prisma.VehicleApiKeyUncheckedUpdateManyWithoutVehicleNestedInput
 }
 
 export type VehicleUncheckedUpdateManyWithoutUserInput = {
@@ -1140,12 +1273,14 @@ export type VehicleCountOutputType = {
   telemetry: number
   healthRecords: number
   alerts: number
+  vehicleApiKeys: number
 }
 
 export type VehicleCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   telemetry?: boolean | VehicleCountOutputTypeCountTelemetryArgs
   healthRecords?: boolean | VehicleCountOutputTypeCountHealthRecordsArgs
   alerts?: boolean | VehicleCountOutputTypeCountAlertsArgs
+  vehicleApiKeys?: boolean | VehicleCountOutputTypeCountVehicleApiKeysArgs
 }
 
 /**
@@ -1179,6 +1314,13 @@ export type VehicleCountOutputTypeCountAlertsArgs<ExtArgs extends runtime.Types.
   where?: Prisma.AlertWhereInput
 }
 
+/**
+ * VehicleCountOutputType without action
+ */
+export type VehicleCountOutputTypeCountVehicleApiKeysArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.VehicleApiKeyWhereInput
+}
+
 
 export type VehicleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   vehicleId?: boolean
@@ -1199,6 +1341,7 @@ export type VehicleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   telemetry?: boolean | Prisma.Vehicle$telemetryArgs<ExtArgs>
   healthRecords?: boolean | Prisma.Vehicle$healthRecordsArgs<ExtArgs>
   alerts?: boolean | Prisma.Vehicle$alertsArgs<ExtArgs>
+  vehicleApiKeys?: boolean | Prisma.Vehicle$vehicleApiKeysArgs<ExtArgs>
   _count?: boolean | Prisma.VehicleCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["vehicle"]>
 
@@ -1261,6 +1404,7 @@ export type VehicleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   telemetry?: boolean | Prisma.Vehicle$telemetryArgs<ExtArgs>
   healthRecords?: boolean | Prisma.Vehicle$healthRecordsArgs<ExtArgs>
   alerts?: boolean | Prisma.Vehicle$alertsArgs<ExtArgs>
+  vehicleApiKeys?: boolean | Prisma.Vehicle$vehicleApiKeysArgs<ExtArgs>
   _count?: boolean | Prisma.VehicleCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type VehicleIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1277,6 +1421,7 @@ export type $VehiclePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     telemetry: Prisma.$TelemetryPayload<ExtArgs>[]
     healthRecords: Prisma.$HealthPredictionPayload<ExtArgs>[]
     alerts: Prisma.$AlertPayload<ExtArgs>[]
+    vehicleApiKeys: Prisma.$VehicleApiKeyPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     vehicleId: string
@@ -1691,6 +1836,7 @@ export interface Prisma__VehicleClient<T, Null = never, ExtArgs extends runtime.
   telemetry<T extends Prisma.Vehicle$telemetryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Vehicle$telemetryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TelemetryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   healthRecords<T extends Prisma.Vehicle$healthRecordsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Vehicle$healthRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HealthPredictionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   alerts<T extends Prisma.Vehicle$alertsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Vehicle$alertsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AlertPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  vehicleApiKeys<T extends Prisma.Vehicle$vehicleApiKeysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Vehicle$vehicleApiKeysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VehicleApiKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2199,6 +2345,30 @@ export type Vehicle$alertsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.AlertScalarFieldEnum | Prisma.AlertScalarFieldEnum[]
+}
+
+/**
+ * Vehicle.vehicleApiKeys
+ */
+export type Vehicle$vehicleApiKeysArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the VehicleApiKey
+   */
+  select?: Prisma.VehicleApiKeySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the VehicleApiKey
+   */
+  omit?: Prisma.VehicleApiKeyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.VehicleApiKeyInclude<ExtArgs> | null
+  where?: Prisma.VehicleApiKeyWhereInput
+  orderBy?: Prisma.VehicleApiKeyOrderByWithRelationInput | Prisma.VehicleApiKeyOrderByWithRelationInput[]
+  cursor?: Prisma.VehicleApiKeyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.VehicleApiKeyScalarFieldEnum | Prisma.VehicleApiKeyScalarFieldEnum[]
 }
 
 /**

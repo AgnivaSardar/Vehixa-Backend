@@ -19,4 +19,19 @@ export const healthController = {
       next(error);
     }
   },
+
+  async evaluateLive(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { vehicleId, ...telemetryData } = req.body;
+      
+      if (!vehicleId) {
+        return res.status(400).json({ message: "vehicleId is required" });
+      }
+      
+      const result = await healthService.evaluateLive(vehicleId, telemetryData);
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  },
 };

@@ -2,7 +2,6 @@ import { z } from "zod";
 import { EngineType, FuelType, VehicleOperationalStatus, VehicleType } from "../../generated/prisma/enums";
 
 export const createVehicleSchema = z.object({
-  userId: z.string().uuid(),
   vehicleNumber: z.string().min(3).optional(),
   model: z.string().optional(),
   manufacturer: z.string().optional(),
